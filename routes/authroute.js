@@ -42,9 +42,8 @@ router.get("/login/success", (req, res) => {
       email: userEmail,
       //   cookie: res.cookie,
     });
-
-    // console.log("Session ID:", sessionId);
     res.redirect(`${clientUrl}`);
+    // console.log("Session ID:", sessionId);
   }
 });
 
