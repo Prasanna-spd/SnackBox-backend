@@ -10,8 +10,8 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    // successRedirect: `${clientUrl}`,
-    successRedirect: "/auth/login/success",
+    successRedirect: `${clientUrl}`,
+    // successRedirect: "/auth/login/success",
     failureRedirect: `${clientUrl}/login`,
   })
 );
@@ -42,7 +42,7 @@ router.get("/login/success", (req, res) => {
       email: userEmail,
       //   cookie: res.cookie,
     });
-    res.redirect(`${clientUrl}`);
+    // res.redirect(`${clientUrl}`);
     // console.log("Session ID:", sessionId);
   }
 });
