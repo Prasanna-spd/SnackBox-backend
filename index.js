@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongodb = require("./db");
-const cors = require("cors");
+// const cors = require("cors");
 const clientUrl = process.env.CLIENT_URL;
 const PORT = process.env.PORT || 5000;
 
@@ -14,12 +14,12 @@ const passportSetUp = require("./passpor");
 // --------------------------------------------------------------
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://snack-box.netlify.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://snack-box.netlify.app",
+//     credentials: true,
+//   })
+// );
 
 app.use(cookieParser());
 
