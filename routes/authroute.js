@@ -34,7 +34,7 @@ router.get("/login/success", (req, res) => {
   if (req.user) {
     const sessionId = req.cookies.session;
     const userEmail = req.user.emails[0].value;
-    res.redirect(clientUrl);
+
     res.status(200).json({
       success: true,
       message: "successfull",
