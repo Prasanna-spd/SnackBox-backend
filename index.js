@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongodb = require("./db");
-// const cors = require("cors");
+const cors = require("cors");
 const clientUrl = process.env.CLIENT_URL;
 const PORT = process.env.PORT || 5000;
 
@@ -37,16 +37,24 @@ app.use(passport.session());
 
 // passportSetUp(passport); // Assuming passportSetUp is a function that configures your passport strategies
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", `${clientUrl}`);
-  // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin,X-Requested-With,Content-Type,Accept"
-  );
-  next();
-});
+app.use(
+  cors({
+    origin: `${clientUrl}`,
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
+
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", `${clientUrl}`);
+//   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin,X-Requested-With,Content-Type,Accept"
+//   );
+//   next();
+// });
 
 mongodb();
 
