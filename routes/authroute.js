@@ -10,8 +10,8 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${clientUrl}`,
-    // successRedirect: "/auth/login/success",
+    // successRedirect: `${clientUrl}`,
+    successRedirect: "/auth/login/success",
     failureRedirect: `${clientUrl}/login`,
   })
 );
@@ -35,16 +35,15 @@ router.get("/login/success", (req, res) => {
     const sessionId = req.cookies.session;
     const userEmail = req.user.emails[0].value;
 
-    res.status(200).json({
-      success: true,
-      message: "successfull",
-      user: req.user,
-      sessionId: sessionId,
-      email: userEmail,
-      //   cookie: res.cookie,
-    });
-    // res.redirect(`${clientUrl}`);
-    // console.log("Session ID:", sessionId);
+    res.redirect(`${clientUrl}`);
+    // res.status(200).json({
+    //   success: true,
+    //   message: "successfull",
+    //   user: req.user,
+    //   sessionId: sessionId,
+    //   email: userEmail,
+
+    // });
   }
 });
 
