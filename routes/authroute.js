@@ -30,19 +30,30 @@ router.get("/logout", (req, res) => {
   res.redirect(clientUrl);
 });
 
+// router.get("/login/success", (req, res) => {
+//   if (req.user) {
+//     const sessionId = req.cookies.session;
+//     const userEmail = req.user.emails[0].value;
+
+//     // res.redirect(`${clientUrl}`);
+//     res.status(200).json({
+//       success: true,
+//       message: "successfull",
+//       user: req.user,
+//       sessionId: sessionId,
+//       email: userEmail,
+//     });
+//   }
+// });
+
 router.get("/login/success", (req, res) => {
   if (req.user) {
     const sessionId = req.cookies.session;
     const userEmail = req.user.emails[0].value;
 
-    // res.redirect(`${clientUrl}`);
-    res.status(200).json({
-      success: true,
-      message: "successfull",
-      user: req.user,
-      sessionId: sessionId,
-      email: userEmail,
-    });
+    // Redirect to the client-side URL and include the session ID and user email as query parameters
+    const redirectUrl = `${clientUrl}?sessionId=${sessionId}&userEmail=${userEmail}`;
+    res.redirect(redirectUrl);
   }
 });
 
