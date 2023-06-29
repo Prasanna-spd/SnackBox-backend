@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongodb = require("./db");
-const cors = require("cors");
+// const cors = require("cors");
 const clientUrl = process.env.CLIENT_URL;
 const PORT = process.env.PORT || 5000;
 
@@ -37,13 +37,13 @@ app.use(passport.session());
 
 // passportSetUp(passport); // Assuming passportSetUp is a function that configures your passport strategies
 
-app.use(
-  cors({
-    origin: clientUrl,
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: clientUrl,
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials: true,
+//   })
+// );
 
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", `${clientUrl}`);
@@ -55,6 +55,16 @@ app.use(
 //   );
 //   next();
 // });
+response.addHeader("Access-Control-Allow-Origin", `${clientUrl}`);
+response.addHeader(
+  "Access-Control-Allow-Methods",
+  "GET, POST, PUT, DELETE, OPTIONS"
+);
+response.addHeader(
+  "Access-Control-Allow-Headers",
+  "origin, content-type, accept, x-requested-with"
+);
+response.addHeader("Access-Control-Max-Age", "3600");
 
 mongodb();
 
