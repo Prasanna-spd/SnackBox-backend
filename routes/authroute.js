@@ -10,8 +10,8 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${clientUrl}`,
-    // successRedirect: "/auth/login/success",
+    // successRedirect: `${clientUrl}`,
+    successRedirect: "/auth/login/success",
     failureRedirect: `${clientUrl}/login`,
   })
 );
