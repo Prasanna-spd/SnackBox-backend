@@ -55,16 +55,19 @@ app.use(passport.session());
 //   );
 //   next();
 // });
-response.addHeader("Access-Control-Allow-Origin", `${clientUrl}`);
-response.addHeader(
-  "Access-Control-Allow-Methods",
-  "GET, POST, PUT, DELETE, OPTIONS"
-);
-response.addHeader(
-  "Access-Control-Allow-Headers",
-  "origin, content-type, accept, x-requested-with"
-);
-response.addHeader("Access-Control-Max-Age", "3600");
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", `${clientUrl}`);
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "origin, content-type, accept, x-requested-with"
+  );
+  res.setHeader("Access-Control-Max-Age", "3600");
+  next();
+});
 
 mongodb();
 
