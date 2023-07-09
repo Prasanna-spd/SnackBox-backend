@@ -73,18 +73,20 @@ const loginUser = async (req, res) => {
   try {
     let userData = await User.findOne({ email });
     if (!userData) {
-      return res
-        .status(400)
-        .json({ errors: "Try Logging With Proper Credentials" });
+      return res.status(400).json({
+        errors: "Try Logging With Proper Credentials",
+        message: "Log In Failed",
+      });
     }
     const compaPassw = await bcrypt.compare(
       req.body.password,
       userData.password
     );
     if (!compaPassw) {
-      return res
-        .status(400)
-        .json({ errors: "Try Logging With Proper password" });
+      return res.status(400).json({
+        errors: "Try Logging With Proper password",
+        message: "Log In Failed",
+      });
     }
 
     const data = {
@@ -95,10 +97,14 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign(data, jwtSecret);
 
-    return res.json({ success: true, authToken: token });
+    return res.json({
+      success: true,
+      authToken: token,
+      message: "Looged In Successfully !!",
+    });
   } catch (error) {
     console.log(error);
-    res.json({ success: false });
+    res.json({ success: false, message: "Log In Failed" });
   }
 };
 
@@ -129,10 +135,10 @@ const createUser = async (req, res) => {
       location: req.body.location,
     });
 
-    res.json({ success: true });
+    res.json({ success: true, message: "Registerd Successfully" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false });
+    res.json({ success: false, message: "Unsuccessful ! Try Again." });
   }
 };
 
@@ -148,7 +154,10 @@ const orderData = async (req, res) => {
         email: req.body.email,
         order_data: [data],
       }).then(() => {
-        res.json({ success: true });
+        res.json({
+          success: true,
+          message: "Checked Out Succesfully. Visit My Orders",
+        });
       });
     } catch (error) {
       console.log(error.message);
@@ -160,7 +169,10 @@ const orderData = async (req, res) => {
         { email: req.body.email },
         { $push: { order_data: data } }
       ).then(() => {
-        res.json({ success: true });
+        res.json({
+          success: true,
+          message: "Checked Out Succesfully. Visit My Orders",
+        });
       });
     } catch (error) {
       console.log(error.message);
